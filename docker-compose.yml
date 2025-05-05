@@ -23,7 +23,6 @@ services:
 
   grafana:
     image: grafana/grafana:latest
-    network_mode: host
     ports:
       - "3000:3000"
     environment:
@@ -35,6 +34,7 @@ services:
 #    user: "0:0"
     volumes:
       - grafana-storage:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
     restart: unless-stopped
     healthcheck:
       test: [ "CMD-SHELL", "curl -s http://localhost:3000/api/health | grep -q ok" ]
@@ -46,10 +46,11 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-        
+    networks:
+      - monitoring
 
 volumes:
   grafana-storage:
 
-# networks:
-#  monitoring:
+networks:
+  monitoring:
