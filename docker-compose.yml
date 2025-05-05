@@ -35,6 +35,8 @@ services:
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/dashboards:/etc/grafana/dashboards
     restart: unless-stopped
     healthcheck:
       test: [ "CMD-SHELL", "curl -s http://localhost:3000/api/health | grep -q ok" ]
