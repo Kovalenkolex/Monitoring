@@ -3,3 +3,6 @@
 !.gitignore
 !install.sh
 !.env
+!/prometheus
+!docker-compose.yml
+!/grafana

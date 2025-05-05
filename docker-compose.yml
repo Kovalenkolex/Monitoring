@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    network_mode: host
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:9090/-/healthy" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=3d'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  grafana:
+    image: grafana/grafana:latest
+    network_mode: host
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=kolex
+      - GF_SECURITY_ADMIN_PASSWORD=FInIk2YQ2Z
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_UPDATE_CHECK=false
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+#    user: "0:0"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:3000/api/health | grep -q ok" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        
+
+volumes:
+  grafana-storage:
+
+# networks:
+#  monitoring:
