@@ -67,7 +67,8 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "percent",
+          "unit": "percentunit",
+	  "decimals": 0,
           "max": 100,
           "thresholds": {
             "mode": "absolute",
