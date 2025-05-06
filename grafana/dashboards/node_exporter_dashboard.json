@@ -67,8 +67,7 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "percentunit",
-	  "decimals": 0,
+          "unit": "percent",
           "max": 100,
           "thresholds": {
             "mode": "absolute",
@@ -147,7 +146,8 @@
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "percent"
+          "unit": "percentunit",
+          "decimals": 0
         }
       },
       "gridPos": { "x": 0, "y": 16, "w": 12, "h": 4 }
