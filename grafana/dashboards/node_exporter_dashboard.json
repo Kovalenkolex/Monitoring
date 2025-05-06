@@ -2,6 +2,9 @@
   "id": null,
   "title": "Node Exporter Minimal",
   "timezone": "browser",
+  "schemaVersion": 35,
+  "version": 2,
+  "refresh": "10s",
   "panels": [
     {
       "type": "gauge",
@@ -9,9 +12,6 @@
       "targets": [
         {
           "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[1m])) by (instance)) * 100",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
@@ -27,8 +27,7 @@
               { "color": "red", "value": 90 }
             ]
           }
-        },
-        "overrides": []
+        }
       },
       "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 }
     },
@@ -53,8 +52,7 @@
               { "color": "red", "value": 90 }
             ]
           }
-        },
-        "overrides": []
+        }
       },
       "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 }
     },
@@ -79,8 +77,7 @@
               { "color": "red", "value": 90 }
             ]
           }
-        },
-        "overrides": []
+        }
       },
       "gridPos": { "x": 0, "y": 4, "w": 6, "h": 4 }
     },
@@ -102,13 +99,57 @@
       "fieldConfig": {
         "defaults": {
           "unit": "Bps"
-        },
-        "overrides": []
+        }
       },
       "gridPos": { "x": 6, "y": 4, "w": 6, "h": 4 }
+    },
+    {
+      "type": "timeseries",
+      "title": "CPU Usage Over Time",
+      "targets": [
+        {
+          "expr": "(1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[1m])) by (instance)) * 100",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        }
+      },
+      "gridPos": { "x": 0, "y": 8, "w": 12, "h": 4 }
+    },
+    {
+      "type": "timeseries",
+      "title": "RAM Usage Over Time",
+      "targets": [
+        {
+          "expr": "(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        }
+      },
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 4 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Disk Usage Over Time",
+      "targets": [
+        {
+          "expr": "(node_filesystem_size_bytes{fstype!=\"tmpfs\",mountpoint=\"/\"} - node_filesystem_free_bytes{fstype!=\"tmpfs\",mountpoint=\"/\"}) / node_filesystem_size_bytes{fstype!=\"tmpfs\",mountpoint=\"/\"} * 100",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        }
+      },
+      "gridPos": { "x": 0, "y": 16, "w": 12, "h": 4 }
     }
-  ],
-  "schemaVersion": 35,
-  "version": 1,
-  "refresh": "10s"
+  ]
 }
