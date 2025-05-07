@@ -56,4 +56,27 @@ sudo systemctl daemon-reload
 sudo systemctl enable node_exporter
 sudo systemctl start node_exporter
 
+# Создание systemd unit-файла для docker-compose мониторинга
+sudo tee /etc/systemd/system/monitoring.service > /dev/null <<EOF
+[Unit]
+Description=Prometheus + Grafana Monitoring Stack
+Requires=docker.service
+After=docker.service
+
+[Service]
+WorkingDirectory=$PROJECT_DIR
+ExecStart=/usr/local/bin/docker-compose up -d
+ExecStop=/usr/local/bin/docker-compose down
+Restart=always
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Запуск systemd юнита
+sudo systemctl daemon-reload
+sudo systemctl enable monitoring
+sudo systemctl start monitoring
+
 echo "Установка завершена успешно"
