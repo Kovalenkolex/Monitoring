@@ -1,5 +1,11 @@
 # Monitoring
 Bash script that installs and sets up Monitoring tools (Node Exporter, Prometheus, Grafana)
+
+Prometheus:
+http://YOUR_IP:9090
+Grafana:
+http://YOUR_IP:3000
+
 ## Technology stack  
 <p align="left">
   <a href="https://www.linux.org" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg" width="36" height="36" alt="Linux" /></a>

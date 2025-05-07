@@ -27,8 +27,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_USER=kolex
-      - GF_SECURITY_ADMIN_PASSWORD=FInIk2YQ2Z
+      - GF_SECURITY_ADMIN_USER
+      - GF_SECURITY_ADMIN_PASSWORD
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_UPDATE_CHECK=false
       - GF_ANALYTICS_REPORTING_ENABLED=false
