@@ -13,8 +13,8 @@ Bash script that installs and sets up Monitoring tools (Node Exporter, Prometheu
 
 ```mermaid
 graph TD
-    A[Node Exporter<br><sub>Metrics exporter</sub>] -->|Scraped by| B[Prometheus<br><sub>Metrics database</sub>]
-    B -->|Queried by| C[Grafana<br><sub>Visualization</sub>]
+    A[Node Exporter<br><sub>Metrics exporter</sub>] -->| Scraped by | B[(Prometheus<br><sub>Metrics database </sub>)]
+    B -->| Queried by | C[Grafana<br><sub>Visualization</sub>]
 
     subgraph Server
         A
