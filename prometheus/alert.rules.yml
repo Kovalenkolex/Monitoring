@@ -1,0 +1,11 @@
+groups:
+  - name: example-alert
+    rules:
+      - alert: HighCPUUsage
+        expr: (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[1m]))) * 100 > 80
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected (instance {{ $labels.instance }})"
+          description: "CPU usage is above 80% for more than 1 minute."
