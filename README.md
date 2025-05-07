@@ -1,9 +1,9 @@
 # Monitoring
 Bash script that installs and sets up Monitoring tools (Node Exporter, Prometheus, Grafana)
 
-Prometheus:
+### Prometheus:
 http://YOUR_IP:9090  
-Grafana:
+### Grafana:
 http://YOUR_IP:3000
 
 ## Technology stack  
