@@ -18,6 +18,7 @@ graph TD
     Grafana[(Grafana Dashboard)]
     NodeExporter -->|Exposes metrics| Prometheus
     Prometheus -->|Provides metrics| Grafana
+```
 
 \
 ## How to run
