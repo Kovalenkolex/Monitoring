@@ -2,7 +2,7 @@
 Bash script that installs and sets up Monitoring tools (Node Exporter, Prometheus, Grafana)
 
 Prometheus:
-http://YOUR_IP:9090
+http://YOUR_IP:9090  
 Grafana:
 http://YOUR_IP:3000
 
