@@ -26,6 +26,8 @@ graph TD
     end
 ```
 
+<pre><code>```mermaid graph TD A[Node Exporter<br><i>Metrics exporter</i>] -->|Scraped by| B[(Prometheus<br><i>Metrics database</i>])] B -->|Queried by| C[Grafana<br><i>Visualization</i>]] subgraph Server A end subgraph Docker Compose Stack B C end ```</code></pre>
+
 ## How to run
 
 ```bash
