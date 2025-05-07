@@ -13,7 +13,7 @@ Bash script that installs and sets up Monitoring tools (Node Exporter, Prometheu
 
 ```mermaid
 graph TD
-    A[Node Exporter<br><sub>System metrics exporter</sub>] -->|Scraped by| B[Prometheus<br><sub>Metrics database</sub>]
+    A[Node Exporter<br><sub>Metrics exporter</sub>] -->|Scraped by| B[Prometheus<br><sub>Metrics database</sub>]
     B -->|Queried by| C[Grafana<br><sub>Visualization</sub>]
 
     subgraph Server
@@ -26,7 +26,6 @@ graph TD
     end
 ```
 
-\
 ## How to run
 
 ```bash
@@ -49,15 +48,18 @@ Bash script:
 ## Alerts (PromQL)
 
 - **High CPU usage**  
-  Triggers when average CPU usage is above 80% for 1 minute:
+Triggers when average CPU usage is above 80% for 1 minute:
+```
 (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[1m]))) * 100 > 80
-
+```
 - **High RAM usage**  
+```
 (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 80
-
+```
 - **Low disk space**  
+```
 (node_filesystem_avail_bytes{fstype!="overlay",fstype!="tmpfs",mountpoint="/"} / node_filesystem_size_bytes{fstype!="overlay",fstype!="tmpfs",mountpoint="/"}) * 100 < 10
-
+```
 
 ## Dashboard Example
 ![Grafana Dashboard Screenshot](./docs/dashboard.png)
