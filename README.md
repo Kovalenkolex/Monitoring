@@ -13,11 +13,17 @@ Bash script that installs and sets up Monitoring tools (Node Exporter, Prometheu
 
 ```mermaid
 graph TD
-    NodeExporter[(Node Exporter)]
-    Prometheus[(Prometheus)]
-    Grafana[(Grafana Dashboard)]
-    NodeExporter -->|Exposes metrics| Prometheus
-    Prometheus -->|Provides metrics| Grafana
+    A[Node Exporter<br><sub>System metrics exporter</sub>] -->|Scraped by| B[Prometheus<br><sub>Metrics database</sub>]
+    B -->|Queried by| C[Grafana<br><sub>Visualization</sub>]
+
+    subgraph Server
+        A
+    end
+
+    subgraph Docker Compose Stack
+        B
+        C
+    end
 ```
 
 \
