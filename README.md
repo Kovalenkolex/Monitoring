@@ -39,6 +39,8 @@ git clone https://github.com/Kovalenkolex/Monitoring.git
 cd Monitoring
 chmod +x install.sh
 ./install.sh
+cd /opt/Monitoring
+docker-compose up -d
 ```
 
 ## How to run 2.0 (no git)

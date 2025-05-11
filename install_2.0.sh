@@ -217,7 +217,7 @@ datasources:
     editable: true
 EOF
 
-# === Dashboard JSON (вставьте вручную содержимое node_exporter_minimal.json)
+# === Dashboard node_exporter_minimal.json
 cat <<EOF | sudo tee $PROJECT_DIR/grafana/dashboards/node_exporter_minimal.json > /dev/null
 {
   "annotations": {
@@ -869,6 +869,10 @@ TimeoutStartSec=0
 [Install]
 WantedBy=multi-user.target
 EOF
+
+# === Запуск docker-compose (Prometheus + Grafana)
+cd $PROJECT_DIR
+sudo docker-compose up -d
 
 # === Финальный запуск ===
 sudo systemctl daemon-reload
