@@ -3,6 +3,7 @@
 !README.md
 !.gitignore
 !install.sh
+!install_2.0.sh
 !.env
 !/prometheus
 !docker-compose.yml
