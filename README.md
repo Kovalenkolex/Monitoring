@@ -41,6 +41,14 @@ chmod +x install.sh
 ./install.sh
 ```
 
+## How to run 2.0 (no git)
+```bash
+nano install_2.0.sh
+*copy the file install_2.0.sh*
+chmod +x install_2.0.sh
+sudo ./install_2.0.sh
+```
+
 Bash script:
 1) Installs Docker, Docker-Compose and Node exporter on Server
 2) Runs Docker-Compose file with Prometheus and Grafana
