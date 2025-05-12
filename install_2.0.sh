@@ -10,6 +10,7 @@ NODE_EXPORTER_VERSION=1.9.0
 PROJECT_DIR="/opt/Monitoring"
 GF_SECURITY_ADMIN_USER="admin"
 GF_SECURITY_ADMIN_PASSWORD="admin"
+IP=$(hostname -I | awk '{print $1}')
 
 # === Установка зависимостей ===
 sudo apt update -y
@@ -24,7 +25,7 @@ fi
 
 # === Установка Docker Compose ===
 if ! command -v docker-compose &> /dev/null; then
-  sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" \
+  sudo curl -L "https://github.com/docker/compose/releases/download/v${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" \
     -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 else
@@ -76,8 +77,6 @@ EOF
 
 # === docker-compose.yml ===
 cat <<EOF | sudo tee $PROJECT_DIR/docker-compose.yml > /dev/null
-version: '3'
-
 services:
   prometheus:
     image: prom/prometheus
@@ -212,7 +211,7 @@ datasources:
   - name: Prometheus
     type: prometheus
     access: proxy
-    url: http://localhost:9090
+    url: http://${IP}:9090
     isDefault: true
     editable: true
 EOF
@@ -860,11 +859,12 @@ Requires=docker.service
 After=docker.service
 
 [Service]
-WorkingDirectory=$PROJECT_DIR
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/Monitoring
 ExecStart=/usr/local/bin/docker-compose up -d
 ExecStop=/usr/local/bin/docker-compose down
-Restart=always
-TimeoutStartSec=0
+TimeoutStartSec=300
 
 [Install]
 WantedBy=multi-user.target
