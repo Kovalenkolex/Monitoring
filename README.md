@@ -35,19 +35,21 @@ graph TD
 ## How to run
 
 ```bash
+cd /opt
 git clone https://github.com/Kovalenkolex/Monitoring.git
 cd Monitoring
-chmod +x install.sh
-./install.sh
+sudo chmod +x install.sh
+sudo ./install.sh
 cd /opt/Monitoring
 docker-compose up -d
 ```
 
 ## How to run 2.0 (no git)
 ```bash
-nano install_2.0.sh
+cd /opt
+sudo nano install_2.0.sh
 *copy the file install_2.0.sh*
-chmod +x install_2.0.sh
+sudo chmod +x install_2.0.sh
 sudo ./install_2.0.sh
 ```
 
@@ -55,7 +57,7 @@ Bash script:
 1) Installs Docker, Docker-Compose and Node exporter on Server
 2) Runs Docker-Compose file with Prometheus and Grafana
 3) Creates prometheus.conf with scrape job
-4) Creates Dashboard (CPU, RAM, disk I/O)
+4) Creates Dashboard (CPU, RAM, disk I/O, NET)
 5) Creates alerts for high load CPU, RAM, low disk space
 6) Creates systemd unit for monitoring system
 
@@ -68,11 +70,13 @@ Triggers when average CPU usage is above 80% for 1 minute:
 ```
 (1 - avg(rate(node_cpu_seconds_total{mode="idle"}[1m]))) * 100 > 80
 ```
-- **High RAM usage**  
+- **High RAM usage**
+Triggers when available RAM usage is above 80%:
 ```
 (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 80
 ```
-- **Low disk space**  
+- **Low disk space**
+Triggers when available disk space on root filesystem is lower than 10%:
 ```
 (node_filesystem_avail_bytes{fstype!="overlay",fstype!="tmpfs",mountpoint="/"} / node_filesystem_size_bytes{fstype!="overlay",fstype!="tmpfs",mountpoint="/"}) * 100 < 10
 ```
